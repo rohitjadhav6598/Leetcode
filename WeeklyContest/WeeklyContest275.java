@@ -29,27 +29,19 @@ public class WeeklyContest275 {
 		return true;
     }
 	
-	//wrong answer
+	//working
 	public int minSwaps(int[] nums) {
-		int z1=0,z2=0,z3=0,f=0,l=0;
-		for (int i = 0; i < nums.length; i++) {
-			if(nums[i]==1) {
-				f=i;
-				break;
-			}
-			z1++;
+		int ones=0,onesInWindow=0,temp=0;
+		for (int i : nums) if(i==1) ones++;
+		int[] nums2=new int[nums.length*2];
+		for(int i=0;i<nums2.length;i++) nums2[i] = nums[i%nums.length];
+		for (int i = 0; i < nums2.length; i++) {
+			if(i>=ones && nums2[i-ones]==1) temp--;
+			if(nums2[i]==1) temp++;
+			onesInWindow = Math.max(temp, onesInWindow);
 		}
-		for (int i = nums.length-1; i >= 0; i--) {
-			if(nums[i]==1) {
-				l=i;
-				break;
-			}
-			z3++;
-		}
-		for (int i = f; i < l; i++) {
-			if(nums[i]==0)z2++;
-		}
-		return Math.min(z2, z1+z3);
+		return ones-onesInWindow;
+
     }
 	
 	//wrong answer
