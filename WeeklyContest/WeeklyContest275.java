@@ -1,8 +1,9 @@
-package WeeklyContest;
+package youtube;
 
 import java.util.Arrays;
 
 public class WeeklyContest275 {
+	
 	//working
 	public boolean checkValid(int[][] matrix) {
 		int n=matrix.length;
@@ -41,35 +42,33 @@ public class WeeklyContest275 {
 			onesInWindow = Math.max(temp, onesInWindow);
 		}
 		return ones-onesInWindow;
-
+		
     }
 	
 	//wrong answer
 	public int wordCount(String[] startWords, String[] targetWords) {
-		int[] startWordsInt = new int[startWords.length];
-		int[] targetWordsInt = new int[targetWords.length];
-		for (int i=0;i<startWords.length;i++) {
-			startWordsInt[i]=0;
-			for (int j = 0; j < startWords[i].length(); j++) {
-				startWordsInt[i]+=startWords[i].charAt(j);
-			}
-		}
-		for (int i=0;i<targetWords.length;i++) {
-			targetWordsInt[i]=0;
-			for (int j = 0; j < targetWords[i].length(); j++) {
-				targetWordsInt[i]+=targetWords[i].charAt(j);
-			}
-		}
 		int ans=0;
 		for(int i=0;i<targetWords.length;i++) {
+			boolean c=false;
 			for(int j=0;j<startWords.length;j++) {
-				int diff = targetWordsInt[i]-startWordsInt[j];
-				if(diff > 96 && diff < 123 && startWords[j].length()+1==targetWords[i].length()) {
-					ans++;
-					i++;
-					break;
+				if(startWords[j].length()+1==targetWords[i].length()) {
+					boolean check = true;
+					for(int k=0;k<startWords[j].length();k++) {
+						if(targetWords[i].indexOf(startWords[j].charAt(k))==-1) {
+							check = false;
+							break;
+						}
+					}
+					if(check) {
+						System.out.println(targetWords[i]+" "+startWords[j]);
+						ans++;
+						c=true;
+						break;						
+					}
+
 				}
 			}
+//			if(c) continue;
 		}
 		return ans;
     }
@@ -79,5 +78,5 @@ public class WeeklyContest275 {
 		return 0;
         
     }
-    
+
 }
